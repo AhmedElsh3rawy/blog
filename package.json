@@ -5,8 +5,8 @@
   "main": "main.ts",
   "scripts": {
     "build": "tsc",
-    "start": "tsx src/main.ts",
-    "dev": "tsx watch src/main.ts",
+    "start": "tsx --env-file=.env src/main.ts",
+    "dev": "tsx watch --env-file=.env src/main.ts",
     "db:generate": "drizzle-kit generate",
     "db:drop": "drizzle-kit drop"
   },
@@ -30,7 +30,6 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.14.2",
     "@types/pg": "^8.11.6",
-    "dotenv": "^16.4.5",
     "drizzle-kit": "^0.22.7",
     "tsx": "^4.15.5",
     "typescript": "^5.4.5"
