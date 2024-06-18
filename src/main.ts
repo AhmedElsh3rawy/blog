@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8080;
 app.use(logger);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, World!");
+  res.status(200).send("Hello, World! ʕ ·(エ)· ʔ");
 });
 
 app.listen(PORT, () => console.log(`[server]: Listening on port: ${PORT}`));
