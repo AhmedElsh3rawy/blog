@@ -8,7 +8,9 @@
     "start": "tsx --env-file=.env src/main.ts",
     "dev": "tsx watch --env-file=.env src/main.ts",
     "db:generate": "drizzle-kit generate",
-    "db:drop": "drizzle-kit drop"
+    "db:drop": "drizzle-kit drop",
+    "db:push": "drizzle-kit push",
+    "db:introspect": "drizzle-kit introspect"
   },
   "keywords": [],
   "author": "",
