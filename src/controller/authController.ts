@@ -14,14 +14,23 @@ export const register = async (req: Request, res: Response) => {
   }
   const hashed = hashPassword(password);
   await addUser(username, email, hashed);
-  res.status(200).json(response("Added new user", 201));
+  res.status(200).json(response(`Added new user named: ${username}`, 201));
 };
 
 export const login = async (req: Request, res: Response) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    return res.json(response("Username and password are required", 400));
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.json(response("Email and password are required", 400));
   }
+  const user = await findUser(email);
+  if (!user) {
+    return res.json(response("Not registered", 400));
+  }
+  const match = comparePasswords(user.password, password);
+  if (!match) {
+    return res.json(response("Invalid email or password", 400));
+  }
+  // TODO
 };
 
 export const logout = async (req: Request, res: Response) => { };
