@@ -1,27 +1,19 @@
 import { Request, Response } from "express";
-import asyncHandler from "express-async-handler";
-import { db } from "../database/db";
-import { users } from "../schema/schema";
-import { eq, sql } from "drizzle-orm";
+import { findUser, addUser } from "../database/queries";
 import { hashPassword, comparePasswords } from "../utils/password";
 import { response } from "../utils/responseHelper";
-import { strict } from "assert";
 
 export const register = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
     return res.status(400).json(response("All fields are required", 400));
   }
-  const user = await db.query.users.findFirst({
-    where: sql`${users.email} = ${email}`,
-  });
+  const user = await findUser(email);
   if (user) {
     return res.json(response("User already exists", 400));
   }
   const hashed = hashPassword(password);
-  await db
-    .insert(users)
-    .values({ username: username, email: email, password: hashed });
+  await addUser(username, email, hashed);
   res.status(200).json(response("Added new user", 201));
 };
 
