@@ -15,3 +15,11 @@ export const posts = pgTable("posts", {
     .notNull()
     .references(() => users.id),
 });
+
+export const tokens = pgTable("tokens", {
+  id: serial("id").primaryKey(),
+  refreshToken: text("refresh_token").notNull(),
+  userId: integer("user_id")
+    .notNull()
+    .references(() => users.id),
+});
