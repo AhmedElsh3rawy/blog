@@ -11,11 +11,12 @@ app.use(express.json());
 app.use(logger);
 app.use(express.urlencoded({ extended: false }));
 app.use("/api/users", authRoutes);
-app.use(errorHandler);
-app.all("*", notFound);
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).send("Hello, World! ʕ ·(エ)· ʔ");
 });
+
+app.all("*", notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`[server]: Listening on port: ${PORT}`));
