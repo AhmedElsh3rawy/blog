@@ -42,7 +42,7 @@ export const login = async (req: Request, res: Response) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   });
-  res.status(200).json({ accessToken, refreshToken });
+  res.status(200).json({ accessToken });
 };
 
 // Logout
