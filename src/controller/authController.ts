@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { findUser, addUser } from "../database/queries";
+import { findUser, addUser, addToken } from "../database/queries";
 import { hashPassword, comparePasswords } from "../utils/password";
 import { response } from "../utils/responseHelper";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwtToken";
@@ -35,8 +35,11 @@ export const login = async (req: Request, res: Response) => {
   }
   const accessToken = await generateAccessToken(user.id);
   const refreshToken = await generateRefreshToken(user.id);
+
+  await addToken(refreshToken, user.id);
+
   res.cookie("refreshToken", refreshToken, {
-    maxAge: 90 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
   });
   res.status(200).json({ accessToken, refreshToken });
