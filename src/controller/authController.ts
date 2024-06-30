@@ -4,6 +4,7 @@ import { hashPassword, comparePasswords } from "../utils/password";
 import { response } from "../utils/responseHelper";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwtToken";
 
+// Register
 export const register = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
@@ -18,6 +19,7 @@ export const register = async (req: Request, res: Response) => {
   res.status(200).json(response(`Added new user named: ${username}`, 201));
 };
 
+// Login
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -40,6 +42,7 @@ export const login = async (req: Request, res: Response) => {
   res.status(200).json({ accessToken, refreshToken });
 };
 
+// Logout
 export const logout = async (req: Request, res: Response) => {
   const refreshToken = req?.cookies?.refreshToken;
   if (!refreshToken) return res.json(response("You are not logged in", 403));
