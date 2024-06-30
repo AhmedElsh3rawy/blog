@@ -1,6 +1,6 @@
 import { db } from "./db";
 import { sql } from "drizzle-orm";
-import { users } from "./schema";
+import { users, tokens } from "./schema";
 
 export async function findUser(email: string) {
   const user = await db.query.users.findFirst({
@@ -17,4 +17,8 @@ export async function addUser(
   await db
     .insert(users)
     .values({ username: username, email: email, password: password });
+}
+
+export async function addToken(token: string, id: number) {
+  await db.insert(tokens).values({ refreshToken: token, userId: id });
 }
