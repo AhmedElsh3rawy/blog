@@ -9,10 +9,10 @@ export function errorHandler(
   next: NextFunction,
 ) {
   console.error(err);
-  res.status(err.status).json({
+  res.status(err.status || 500).json({
     status: err.statusText,
     message: err.message,
-    statusCode: err.statusCode,
+    statusCode: err.statusCode || 500,
     stack: err.stack,
   });
 }
