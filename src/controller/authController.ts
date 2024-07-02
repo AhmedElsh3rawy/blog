@@ -1,18 +1,25 @@
-import { Request, Response } from "express";
-import { findUser, addUser, addToken } from "../database/queries";
+import { Request, Response, NextFunction } from "express";
+import { findUser, addUser, addToken, deleteToken } from "../database/queries";
 import { hashPassword, comparePasswords } from "../utils/password";
 import { response } from "../utils/responseHelper";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwtToken";
+import AppError from "../utils/appError";
 
 // Register
-export const register = async (req: Request, res: Response) => {
+export const register = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
-    return res.status(400).json(response("All fields are required", 400));
+    return next(new AppError("All fields are required", 400));
+    // return res.status(400).json(response("All fields are required", 400));
   }
   const user = await findUser(email);
   if (user) {
-    return res.json(response("User already exists", 400));
+    return next(new AppError("User already exists", 400));
+    // return res.json(response("User already exists", 400));
   }
   const hashed = hashPassword(password);
   await addUser(username, email, hashed);
@@ -20,7 +27,11 @@ export const register = async (req: Request, res: Response) => {
 };
 
 // Login
-export const login = async (req: Request, res: Response) => {
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.json(response("Email and password are required", 400));
@@ -46,9 +57,15 @@ export const login = async (req: Request, res: Response) => {
 };
 
 // Logout
-export const logout = async (req: Request, res: Response) => {
+export const logout = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const refreshToken = req?.cookies?.refreshToken;
-  if (!refreshToken) return res.json(response("You are not logged in", 403));
+  if (!refreshToken) return next(new AppError("You are not logged in", 403));
+  // return res.json(response("You are not logged in", 403));
+  await deleteToken(+req.body.id);
   res.clearCookie("refreshToken", {
     httpOnly: true,
   });
