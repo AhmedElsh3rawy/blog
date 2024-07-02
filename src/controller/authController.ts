@@ -14,12 +14,10 @@ export const register = async (
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
     return next(new AppError("All fields are required", 400));
-    // return res.status(400).json(response("All fields are required", 400));
   }
   const user = await findUser(email);
   if (user) {
     return next(new AppError("User already exists", 400));
-    // return res.json(response("User already exists", 400));
   }
   const hashed = hashPassword(password);
   await addUser(username, email, hashed);
@@ -64,10 +62,9 @@ export const logout = async (
 ) => {
   const refreshToken = req?.cookies?.refreshToken;
   if (!refreshToken) return next(new AppError("You are not logged in", 403));
-  // return res.json(response("You are not logged in", 403));
   await deleteToken(+req.body.id);
   res.clearCookie("refreshToken", {
     httpOnly: true,
   });
-  res.status(200).json(response("Logged out successfuly", 200));
+  res.sendStatus(204);
 };
