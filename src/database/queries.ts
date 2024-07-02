@@ -1,5 +1,5 @@
 import { db } from "./db";
-import { sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { users, tokens } from "./schema";
 
 export async function findUser(email: string) {
@@ -21,4 +21,8 @@ export async function addUser(
 
 export async function addToken(token: string, id: number) {
   await db.insert(tokens).values({ refreshToken: token, userId: id });
+}
+
+export async function deleteToken(id: number) {
+  await db.delete(tokens).where(eq(tokens.userId, id));
 }
