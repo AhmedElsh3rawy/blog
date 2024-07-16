@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import { logger } from "./middleware/logger";
-import authRoutes from "./routes/authRoutes";
+import authRoutes from "./routes/auth";
 import { errorHandler, notFound } from "./middleware/errorHandler";
 
 const app: Express = express();
