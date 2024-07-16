@@ -19,6 +19,4 @@ app.get("/", (req: Request, res: Response) => {
 app.all("*", notFound);
 app.use(errorHandler);
 
-app.listen(PORT, () =>
-  console.log(`[server]: Listening on port: ${PORT} ( ͡° ͜ʖ ͡°)`),
-);
+app.listen(PORT, () => console.log(`[server]: Listening on port: ${PORT}`));
