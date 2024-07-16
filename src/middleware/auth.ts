@@ -14,9 +14,10 @@ export function authenticateToken(
     return res.status(401).json(response("Unauthoraized access", 401));
   }
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string, (err, user) => {
-    if (err) return res.status(403).json(response("Forbidden", 403));
-    req.user = user;
-    next();
-  });
+  const decoded = jwt.verify(
+    token,
+    process.env.ACCESS_TOKEN_SECRET as string,
+  ) as { id: string };
+  req.user = decoded;
+  next();
 }
