@@ -32,7 +32,7 @@ export const login = asyncHandler(
     }
     const user = await findUser(email);
     if (!user) {
-      return next(new AppError("You are not registered", 400));
+      return next(new AppError("User not found", 404));
     }
     const match = comparePasswords(user.password, password);
     if (!match) {
