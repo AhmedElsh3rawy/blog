@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/auth", authRoutes);
 
 app.get("/", (req: Request, res: Response) => {
-  res.status(200).send("Hello, World! ʕ ·(エ)· ʔ");
+  res.status(200).send("Hello, World! (¬‿¬)");
 });
 
 app.all("*", notFound);
