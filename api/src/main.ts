@@ -6,9 +6,11 @@ import { errorHandler, notFound } from "./middleware/error-handler";
 
 const app = express();
 
-const PORT = env.PORT;
-
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(logging);
+
+const PORT = env.PORT;
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello, stranger...");
