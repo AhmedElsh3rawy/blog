@@ -1,8 +1,12 @@
-import * as express from "express";
-import type { Request, Response } from "express";
+import express from "express";
+import type { Request, Response, NextFunction } from "express";
 import env from "./utils/env";
+import logger from "./config/logger";
+import { logging } from "./middleware/logging";
 
 const app = express();
+
+app.use(logging);
 
 const PORT = env.PORT;
 
