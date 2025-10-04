@@ -5,6 +5,7 @@ const envSchema = z.object({
   NODE_ENV: z
     .union([z.literal("development"), z.literal("production")])
     .default("development"),
+  APP_URL: z.string().nonempty(),
 
   POSTGRES_USER: z.string().nonempty(),
   POSTGRES_HOST: z.string().nonempty(),
