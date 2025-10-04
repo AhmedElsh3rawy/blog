@@ -6,7 +6,11 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsx watch --env-file .env src/main.ts",
-    "start": "node --env-file .env dist/src/main.js"
+    "start": "NODE_ENV=production node --env-file .env dist/src/main.js",
+    "db:generate": "drizzle-kit generate",
+    "db:drop": "drizzle-kit drop",
+    "db:push": "drizzle-kit push",
+    "db:introspect": "drizzle-kit introspect"
   },
   "keywords": [],
   "author": "",
