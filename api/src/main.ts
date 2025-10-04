@@ -1,6 +1,7 @@
 import express from "express";
 import type { Request, Response } from "express";
 import env from "./utils/env";
+import cookieParser from "cookie-parser";
 import { logging } from "./middleware/logging";
 import { errorHandler, notFound } from "./middleware/error-handler";
 import { setupSwaggerDocs } from "./utils/swagger";
@@ -9,6 +10,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(cookieParser());
 app.use(logging);
 
 setupSwaggerDocs(app);
