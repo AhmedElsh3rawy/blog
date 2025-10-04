@@ -7,6 +7,7 @@ const envSchema = z.object({
     .default("development"),
 
   POSTGRES_USER: z.string().nonempty(),
+  POSTGRES_HOST: z.string().nonempty(),
   POSTGRES_PASSWORD: z.string().nonempty(),
   POSTGRES_DB: z.string().nonempty(),
   POSTGRES_PORT: z.coerce.number().gte(5432),
