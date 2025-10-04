@@ -6,6 +6,7 @@ const envSchema = z.object({
     .union([z.literal("development"), z.literal("production")])
     .default("development"),
   APP_URL: z.string().nonempty(),
+  COOKIE_SECRET: z.string().nonempty(),
 
   POSTGRES_USER: z.string().nonempty(),
   POSTGRES_HOST: z.string().nonempty(),
