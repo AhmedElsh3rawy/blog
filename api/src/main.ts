@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(cookieParser());
+app.use(cookieParser(env.COOKIE_SECRET));
 app.use(
   cors({
     origin: env.APP_URL,
