@@ -7,6 +7,10 @@ const envSchema = z.object({
     .default("development"),
   APP_URL: z.string().nonempty(),
   COOKIE_SECRET: z.string().nonempty(),
+  SESSION_SECRET: z.string().nonempty(),
+
+  REFRESH_TOKEN_SECRET: z.string().nonempty(),
+  ACCESS_TOKEN_SECRET: z.string().nonempty(),
 
   POSTGRES_USER: z.string().nonempty(),
   POSTGRES_HOST: z.string().nonempty(),
