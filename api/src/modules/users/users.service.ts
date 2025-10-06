@@ -29,7 +29,7 @@ export class UsersService {
     try {
       return await db.select().from(users);
     } catch (err) {
-      throw new AppError(`Failed to get all users ${err}`, 500);
+      throw new AppError(`Failed to get all users ${err}`);
     }
   }
 
