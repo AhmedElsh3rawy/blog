@@ -7,6 +7,7 @@ import cors from "cors";
 import { logging } from "./middleware/logging";
 import { errorHandler, notFound } from "./middleware/error-handler";
 import { setupSwaggerDocs } from "./utils/swagger";
+import authRouter from "./modules/auth/auth.router";
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.use(logging);
 setupSwaggerDocs(app);
 
 const PORT = env.PORT;
+
+app.use("/api/v1/auth", authRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello, stranger...");
